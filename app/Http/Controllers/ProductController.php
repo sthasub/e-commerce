@@ -8,6 +8,7 @@ use App\Models\Product;
 use App\Models\Basket;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+
 class ProductController extends Controller
 {
     //
@@ -29,7 +30,7 @@ class ProductController extends Controller
         if ($req->session()->has('user')) {
             $basket = new Basket();
             $basket->user_id = $req->session()->get('user')['id'];
-            $basket->product_id=$req->product_id;
+            $basket->product_id = $req->product_id;
             $basket->save();
             return redirect('/');
         }
@@ -42,49 +43,65 @@ class ProductController extends Controller
         return view('search', ['products' => $data]);
     }
 
-    function basketItem(){
+    function basketItem()
+    {
         $user_id = Session::get('user')['id'];
-        return Basket::where('user_id',$user_id)->count();
+        return Basket::where('user_id', $user_id)->count();
     }
 
-    function basketList(){
+    function basketList()
+    {
         $user_id = Session::get('user')['id'];
         $data = DB::table('basket')
-            ->join('products','basket.product_id','products.id')
-            ->select('products.*','basket.id as basket_id')
-            ->where('basket.user_id',$user_id)->get();
-        return view('basketList',['products'=>$data]);
+            ->join('products', 'basket.product_id', 'products.id')
+            ->select('products.*', 'basket.id as basket_id')
+            ->where('basket.user_id', $user_id)->get();
+        return view('basketList', ['products' => $data]);
     }
 
-    function removebasket($id){
+    function removebasket($id)
+    {
         Basket::destroy($id);
         return redirect('/basketList');
     }
 
-    function orderNow(){
+    function orderNow()
+    {
         $user_id = Session::get('user')['id'];
         $total = DB::table('basket')
-            ->join('products','basket.product_id','products.id')
-            ->where('basket.user_id',$user_id)
+            ->join('products', 'basket.product_id', 'products.id')
+            ->where('basket.user_id', $user_id)
             ->sum('products.price');
-        return view('ordernow',['total'=>$total]);
+        return view('ordernow', ['total' => $total]);
     }
 
-    function orderPlace(Request $req){
+    function orderPlace(Request $req)
+    {
         $userId = Session::get('user')['id'];
-        $allCart = Basket::where('user_id',$userId)->get();
-        foreach ($allCart as $cart){
+        $allCart = Basket::where('user_id', $userId)->get();
+        foreach ($allCart as $cart) {
             $order = new Order();
-            $order->product_id=$cart['product_id'];
-            $order->user_id=$cart['user_id'];
-            $order->address=$req->address;
-            $order->status="pending";
-            $order->payment_method=$req->payment;
-            $order->payment_status="pending";
+            $order->product_id = $cart['product_id'];
+            $order->user_id = $cart['user_id'];
+            $order->address = $req->address;
+            $order->status = "pending";
+            $order->payment_method = $req->payment;
+            $order->payment_status = "pending";
             $order->save();
         }
-        Basket::where('user_id',$userId)->delete();
+        Basket::where('user_id', $userId)->delete();
         return redirect('/');
 //        return $req->input();
+    }
+
+    function myorder()
+    {
+        $user_id = Session::get('user')['id'];
+        $data = DB::table('orders')
+            ->join('products', 'orders.product_id', 'products.id')
+            ->where('orders.user_id', $user_id)
+            ->get();
+//        return $data;
+        return view('myorder',['orders'=>$data]);
     }
 }
