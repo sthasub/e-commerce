@@ -4,6 +4,9 @@
         <section class="">
             <div class="trending-wrapper">
                 <h3>Basket List</h3>
+                <a class="btn btn-success" href="/ordernow">Order Now</a>
+                <br/>
+                <br/>
                 @foreach($products as $item)
                     <div class="row search-item basket-list-divider">
                         <div class="col-sm-3">
@@ -22,6 +25,7 @@
                         </div>
                     </div>
                 @endforeach
+                <a class="btn btn-success" href="/ordernow">Order Now</a>
             </div>
         </section>
 
