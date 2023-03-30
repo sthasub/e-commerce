@@ -27,3 +27,4 @@ Route::post('/add_to_basket',[ProductController::class,'AddToBasket']);
 Route::get('/search',[ProductController::class,'search']);
 Route::get('/basketList',[ProductController::class,'basketList']);
 Route::get('/removebasket/{id}',[ProductController::class,'removebasket']);
+Route::get('/ordernow',[ProductController::class,'orderNow']);
