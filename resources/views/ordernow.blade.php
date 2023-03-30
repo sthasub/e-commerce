@@ -23,19 +23,20 @@
                 </tr>
                 </tbody>
             </table>
-            <form action="/action_page.php">
+            <form action="/orderplace" method="post">
+                @csrf
                 <div class="mb-3 mt-3">
-                    <textarea class="form-control" rows="5" id="comment" name="text"></textarea>
+                    <textarea class="form-control" name="address" placeholder="Enter your Address" rows="5" id="comment" name="text"></textarea>
                 </div>
                 <div class="mb-3">
                     <label for="payment">Payment Method</label>
-                    <p><input type="radio" id="payment" placeholder="Payment" name="payment"/>
+                    <p><input type="radio" value="cash" placeholder="Payment" name="payment"/>
                         <span>Google pay</span>
                     </p>
-                    <p><input type="radio" id="payment" placeholder="Payment" name="payment"/>
+                    <p><input type="radio" value="cash" placeholder="Payment" name="payment"/>
                         <span>Paypal</span>
                     </p>
-                    <p><input type="radio" id="payment" placeholder="Payment" name="payment"/>
+                    <p><input type="radio" value="cash" placeholder="Payment" name="payment"/>
                         <span>Direct bank</span>
                     </p>
                 </div>
