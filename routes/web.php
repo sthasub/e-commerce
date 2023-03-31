@@ -34,3 +34,7 @@ Route::view('/register',"registration");
 // Google login
 Route::get('/google/redirect', [UserController::class,'googleRedirect']);
 Route::get('/google/callback', [UserController::class,'googleCallback']);
+
+//facebook login
+Route::get('/facebook/redirect',[UserController::class,'facebookRedirect']);
+Route::get('/auth/facebook/callback',[UserController::class,'facebookCallback']);

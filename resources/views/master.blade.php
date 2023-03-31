@@ -8,11 +8,15 @@
     <title>E-commerce</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+          integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"
             integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N"
             crossorigin="anonymous" defer></script>
+
 </head>
 <body>
 {{View::make('header')}}
@@ -20,52 +24,63 @@
 {{View::make('footer')}}
 </body>
 <style>
-    footer{
+    footer {
         position: relative;
         bottom: 0;
         width: 100%;
         height: 2.5rem;
     }
-    .basket-list-divider{
+
+    .basket-list-divider {
         border-bottom: 1px solid rgba(0, 0, 0, 0.24);
         margin-bottom: 20px;
         padding-bottom: 20px;
     }
+
     .custom-login {
         height: 500px;
         padding-top: 100px;
     }
-    img.slider-img{
+
+    img.slider-img {
         height: 400px !important;
     }
-    .custom-product{
+
+    .custom-product {
         position: relative;
         min-height: 100vh;
     }
 
-    .slider-text{
+    .slider-text {
         background-color: #35443585 !important;
     }
-    .trending-img{
+
+    .trending-img {
         height: 100px;
     }
-    .trending-item{
+
+    .trending-item {
         float: left;
         width: 20%;
     }
-    .trending-wrapper{
+
+    .trending-wrapper {
         margin: 30px;
     }
-    .detail-img{
+
+    .detail-img {
         height: 200px;
     }
-    .search-box{
+
+    .search-box {
         width: 400px;
     }
-    a{
+
+    a {
         text-decoration: none;
     }
-    a:hover{
+
+    a:hover {
         text-decoration: underline;
     }
 </style>

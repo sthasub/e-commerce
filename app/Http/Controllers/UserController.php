@@ -18,18 +18,41 @@ class UserController extends Controller
     function googleCallback()
     {
         $google_user = Socialite::driver('google')->stateless()->user();
-
+        $existingUser = User::where('google_id', $google_user->id)->first();
+        if ($existingUser) {
+            Auth::login($existingUser);
+            return redirect('/');
+        } else {
 //           dd($google_user);
-        $database_user = User::updateOrCreate([
-            'google_id' => $google_user->id,
-        ], [
-            'name' => $google_user->name,
-            'email' => $google_user->email,
-            'google_token' => $google_user->token,
-            'google_refresh_token' => $google_user->refreshToken,
+            $database_user = User::updateOrCreate([
+                'google_id' => $google_user->id,
+            ], [
+                'name' => $google_user->name,
+                'email' => "Google=".$google_user->email,
+                'google_token' => $google_user->token,
+                'google_refresh_token' => $google_user->refreshToken,
+            ]);
+            Auth::login($database_user);
+            return redirect('/');
+        }
+    }
+
+    function facebookRedirect()
+    {
+        return Socialite::driver('facebook')->redirect();
+    }
+
+    function facebookCallback()
+    {
+        $facebook_user = Socialite::driver('facebook')->stateless()->user();
+//        dd($facebook_user);
+        $database_user = User::updateOrCreate(['fb_id' => $facebook_user->id], [
+            'fb_token' => $facebook_user->token,
+            'fb_refresh_token' => $facebook_user->refreshToken,
+            'email' => "Facebook=".$facebook_user->email,
+            'name' => $facebook_user->name,
         ]);
         Auth::login($database_user);
-
         return redirect('/');
     }
 
