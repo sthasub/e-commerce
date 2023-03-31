@@ -38,7 +38,7 @@
     }
 
     .custom-login {
-        height: 500px;
+        min-height: 80vh;
         padding-top: 100px;
     }
 
@@ -48,7 +48,7 @@
 
     .custom-product {
         position: relative;
-        min-height: 100vh;
+        min-height: 110vh;
     }
 
     .slider-text {

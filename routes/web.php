@@ -38,3 +38,7 @@ Route::get('/google/callback', [UserController::class,'googleCallback']);
 //facebook login
 Route::get('/facebook/redirect',[UserController::class,'facebookRedirect']);
 Route::get('/auth/facebook/callback',[UserController::class,'facebookCallback']);
+
+//github login
+Route::get('/github/redirect',[UserController::class,'githubRedirect']);
+Route::get('/oauth/github/callback',[UserController::class,'githubCallback']);

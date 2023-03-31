@@ -46,15 +46,36 @@ class UserController extends Controller
     {
         $facebook_user = Socialite::driver('facebook')->stateless()->user();
 //        dd($facebook_user);
-        $database_user = User::updateOrCreate(['fb_id' => $facebook_user->id], [
-            'fb_token' => $facebook_user->token,
-            'fb_refresh_token' => $facebook_user->refreshToken,
+        $database_user = User::updateOrCreate(['facebook_id' => $facebook_user->id], [
+            'facebook_token' => $facebook_user->token,
+            'facebook_refresh_token' => $facebook_user->refreshToken,
             'email' => "Facebook=".$facebook_user->email,
             'name' => $facebook_user->name,
         ]);
         Auth::login($database_user);
         return redirect('/');
     }
+
+    function githubRedirect()
+    {
+        return Socialite::driver('github')->redirect();
+    }
+
+    function githubCallback()
+    {
+        $github_user = Socialite::driver('github')->stateless()->user();
+//       dd($github_user);
+        $database_user = User::updateOrCreate(['github_id' => $github_user->id], [
+            'github_token' => $github_user->token,
+            'github_refresh_token' => $github_user->refreshToken,
+            'email' => "Github=".$github_user->email,
+            'name' => $github_user->nickname,
+        ]);
+        Auth::login($database_user);
+        return redirect('/');
+    }
+
+
 
     //
     function login(Request $req)

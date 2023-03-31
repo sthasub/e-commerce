@@ -29,7 +29,7 @@ use Illuminate\Database\Eloquent\Model;
 class User extends \Illuminate\Foundation\Auth\User
 {
     use HasFactory;
-    protected $fillable = ['name','email','password','google_id','fb_id',
-        'google_token','fb_token',
-        'google_refresh_token','fb_refresh_token'];
+    protected $fillable = ['name','email','password','google_id','fb_id',"git_id",
+        'google_token','fb_token','git_token',
+        'google_refresh_token','fb_refresh_token','git_refresh_token'];
 }
