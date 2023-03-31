@@ -26,7 +26,10 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
  * @mixin \Eloquent
  */
-class User extends Model
+class User extends \Illuminate\Foundation\Auth\User
 {
     use HasFactory;
+    protected $fillable = ['name','email','password','google_id',
+        'google_token',
+        'google_refresh_token'];
 }

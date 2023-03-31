@@ -1,7 +1,11 @@
 <?php
 use App\Http\Controllers\ProductController;
 $total=0;
-if(Session::has('user')){
+//if(Session::has('user')){
+//    $productCount = new ProductController();
+//    $total=$productCount->basketItem();
+//}
+if(Auth::check()){
     $productCount = new ProductController();
     $total=$productCount->basketItem();
 }
@@ -23,15 +27,21 @@ if(Session::has('user')){
                 <li class="nav-item">
                     <a class="nav-link" href="/basketList">Basket({{$total}})</a>
                 </li>
-                @if(Session::has('user'))
+                @if(Auth::check())
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">{{Session::get('user')['name']}}</a>
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">{{Auth::user()->name}}</a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="/logout">Logout</a></li>
+                        <li>
+                            <form class="dropdown-item" action="/logout" method="post">
+                                @csrf
+                                <button type="submit">logout</button>
+                            </form>
+                        </li>
                     </ul>
                 </li>
                 @else
                     <a class="nav-link" href="/login">login</a>
+                    <a class="nav-link" href="/register">register</a>
                 @endif
             </ul>
             <form action="/search" class="d-flex" role="search">

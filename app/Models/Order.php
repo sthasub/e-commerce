@@ -9,4 +9,7 @@ class Order extends Model
 {
     use HasFactory;
     public $timestamps = false;
+    function product(){
+        return $this->belongsTo(Product::class,'product_id');
+    }
 }
