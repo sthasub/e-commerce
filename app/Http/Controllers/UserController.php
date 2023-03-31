@@ -25,10 +25,10 @@ class UserController extends Controller
         } else {
 //           dd($google_user);
             $database_user = User::updateOrCreate([
-                'google_id' => $google_user->id,
+                'email' => $google_user->email
             ], [
+                'google_id' => $google_user->id,
                 'name' => $google_user->name,
-                'email' => "Google=".$google_user->email,
                 'google_token' => $google_user->token,
                 'google_refresh_token' => $google_user->refreshToken,
             ]);
@@ -46,12 +46,16 @@ class UserController extends Controller
     {
         $facebook_user = Socialite::driver('facebook')->stateless()->user();
 //        dd($facebook_user);
-        $database_user = User::updateOrCreate(['facebook_id' => $facebook_user->id], [
-            'facebook_token' => $facebook_user->token,
-            'facebook_refresh_token' => $facebook_user->refreshToken,
-            'email' => "Facebook=".$facebook_user->email,
-            'name' => $facebook_user->name,
-        ]);
+        $database_user = User::updateOrCreate([
+            'email' => $facebook_user->email,
+        ], [
+                'facebook_id' => $facebook_user->id,
+                'facebook_token' => $facebook_user->token,
+                'facebook_refresh_token' => $facebook_user->refreshToken,
+                'name' => $facebook_user->name
+            ]
+
+        );
         Auth::login($database_user);
         return redirect('/');
     }
@@ -65,16 +69,16 @@ class UserController extends Controller
     {
         $github_user = Socialite::driver('github')->stateless()->user();
 //       dd($github_user);
-        $database_user = User::updateOrCreate(['github_id' => $github_user->id], [
-            'github_token' => $github_user->token,
-            'github_refresh_token' => $github_user->refreshToken,
-            'email' => "Github=".$github_user->email,
-            'name' => $github_user->nickname,
-        ]);
+        $database_user = User::updateOrCreate([
+            'email' => $github_user->email],
+            ['github_id' => $github_user->id,
+                'github_token' => $github_user->token,
+                'github_refresh_token' => $github_user->refreshToken,
+                'name' => $github_user->nickname,
+            ]);
         Auth::login($database_user);
         return redirect('/');
     }
-
 
 
     //
